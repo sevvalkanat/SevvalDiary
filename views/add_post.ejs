@@ -23,7 +23,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <form method="POST" action="/posts" class="tm-contact-form" >
+        <form method="POST" action="/posts" class="tm-contact-form"  encType="multipart/form-data">
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Post Title</label>
@@ -43,15 +43,14 @@
           <div class="form-group">
             <input type="file" name="image" class="form-control-file rounded-0">
           </div>
-          <br>
-          
+        <br>
           <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
         </form>
       </div>
     </div>
   </div>
-
   <hr>
+   
 
   <%- include('partials/_footer') -%>
 </body>
