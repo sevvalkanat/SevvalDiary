@@ -2,10 +2,29 @@ const Post = require('../models/Post')
 const fs = require('fs');
 
 exports.getAllPosts = async(req,res)=>{
-    const posts = await Post.find({}).sort('-dateCreated');
+    const page = req.query.page || 1;
+    const postsPerPage = 3;
+
+    const totalPosts = await Post.find().countDocuments();
+
+    const posts = await Post.find({}).
+    sort('-dateCreated')
+    .skip((page-1)*postsPerPage)
+    .limit(postsPerPage);
+
+        
     res.render('index',{
-        posts
+        posts:posts,
+        current:page,
+        pages:Math.ceil(totalPosts / postsPerPage)
     });
+
+
+
+
+
+
+
 };
 
 exports.getPost = async(req,res)=>{ 
@@ -28,7 +47,7 @@ exports.getPost = async(req,res)=>{
     }
     
     let uploadImage = req.files.image;
-    let uploadPath = __dirname + '/public/uploads/' + uploadImage.name;
+    let uploadPath = __dirname + '/../public/uploads/' + uploadImage.name;
     
     uploadImage.mv(uploadPath, async() =>{
         await Post.create({
@@ -51,7 +70,7 @@ exports.updatePost= async(req,res)=>{
 
     exports.deletePost = async(req,res)=>{
         const post =await Post.findOne({_id: req.params.id}); 
-        let deletedImage = __dirname + '/public' + post.image;
+        let deletedImage = __dirname + '/../public' + post.image;
         fs.unlinkSync(deletedImage);
        await Post.findByIdAndDelete(req.params.id);
        res.redirect('/');

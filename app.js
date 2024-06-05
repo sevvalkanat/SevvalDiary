@@ -2,10 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const methodOverride = require('method-override');
-const path = require('path');
 const ejs = require('ejs');
-const fs =  require('fs');
-const Post = require('./models/Post');
 const postController = require('./controllers/postController');
 const pageController = require('./controllers/pageController');
 
