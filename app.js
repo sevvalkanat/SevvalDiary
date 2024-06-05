@@ -10,7 +10,7 @@ const app = express()
 
 
 //connect db
-mongoose.connect('mongodb://localhost/myPost-diary');
+mongoose.connect('mongodb://127.0.0.1:27017/myPost-diary');
 
 //template engine
 app.set("view engine","ejs");
