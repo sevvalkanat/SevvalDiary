@@ -5,12 +5,12 @@ const methodOverride = require('method-override');
 const ejs = require('ejs');
 const postController = require('./controllers/postController');
 const pageController = require('./controllers/pageController');
+require('dotenv').config()
 
 const app = express()
 
-
 //connect db
-mongoose.connect('mongodb://127.0.0.1:27017/');
+mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_HOST}/${process.env.MONGODB_DBNAME}?retryWrites=true&w=majority&appName=Cluster0`);
 
 //template engine
 app.set("view engine","ejs");
